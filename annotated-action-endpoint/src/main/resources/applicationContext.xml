@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:sws="http://www.springframework.org/schema/web-services"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+		http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-2.0.xsd">
+
+	<bean id="helloWorldImpl"
+		class="com.marvelution.samples.spring.ws.annotated.action.endpoint.HelloWorldImpl" />
+
+	<bean id="objectFactory"
+		class="com.marvelution.samples.schemas.helloworldserviceschema.ObjectFactory" />
+
+	<bean id="helloWorldEndpoint"
+		class="com.marvelution.samples.spring.ws.annotated.action.endpoint.endpoints.HelloWorldEndpoint">
+		<constructor-arg ref="helloWorldImpl" />
+		<constructor-arg ref="objectFactory" />
+	</bean>
+
+	<bean
+		class="org.springframework.ws.soap.addressing.server.AnnotationActionEndpointMapping" />
+
+	<bean
+		class="org.springframework.ws.server.endpoint.adapter.GenericMarshallingMethodEndpointAdapter">
+		<constructor-arg ref="marshaller" />
+	</bean>
+
+	<bean id="marshaller" class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+		<property name="contextPath"
+			value="com.marvelution.samples.schemas.helloworldserviceschema" />
+	</bean>
+	<sws:static-wsdl location="/WEB-INF/wsdl/HelloWorldService.wsdl" id="HelloWorldService"/>
+</beans>

@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<parent>
+		<artifactId>spring-webservices-samples
+		</artifactId>
+		<groupId>com.marvelution.samples</groupId>
+		<version>1.0</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.marvelution.samples</groupId>
+	<artifactId>annotated-action-endpoint
+	</artifactId>
+	<packaging>war</packaging>
+	<version>1.0</version>
+	<name>Marvelution :: Samples :: Spring WebServices :: Annotated Action Endpoint</name>
+	<url>http://code.google.com/p/spring-webservices-samples/</url>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxb2-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>xjc</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<schemaDirectory>${basedir}/src/main/webapp/WEB-INF/</schemaDirectory>
+					<schemaFiles>wsdl/xsd/HelloWorldServiceSchema.xsd</schemaFiles>
+					<clearOutputDir>false</clearOutputDir>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.0.0.v20130308</version>
+				<configuration>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<!-- <webApp>
+						<contextPath>/spring-ws</contextPath>
+					</webApp> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
